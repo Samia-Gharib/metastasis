@@ -9,8 +9,6 @@ from flask import Flask,request, url_for, redirect, render_template, jsonify
 import pandas as pd
 import pickle
 import numpy as np
-from sklearn import preprocessing
-
 
 # Initalise the Flask app
 app = Flask(__name__ , template_folder = 'templates')
@@ -26,8 +24,7 @@ def index():
 def y_predict():
     int_features = [float(x) for x in request.form.values()]
     final_features = [np.array(int_features)]
-    normalized_features = preprocessing.normalize(final_features)
-    prediction = model.predict(normalized_features)
+    prediction = model.predict(final_features)
     output = round(prediction[0], 2)
     if int(output)== 1:
             output_text ='Metastatic'
